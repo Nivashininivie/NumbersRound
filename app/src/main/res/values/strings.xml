@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Numbers Round</string>
+    <string name="generate">Generate</string>
+    <string name="select_boxes_content">Select any of the six boxes given below and click on the generate button to start the game</string>
+</resources>

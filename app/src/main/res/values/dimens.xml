@@ -1,0 +1,66 @@
+<resources>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+
+    <!--Margin and Padding-->
+    <dimen name="margin_xSmall">4dp</dimen>
+    <dimen name="margin_Small">8dp</dimen>
+    <dimen name="margin_Normal">12dp</dimen>
+    <dimen name="margin_Medium">16dp</dimen>
+    <dimen name="margin_Large">24dp</dimen>
+    <dimen name="margin_xLarge">32dp</dimen>
+    <dimen name="margin_xxLarge">40dp</dimen>
+    <dimen name="margin_xxxLarge">100dp</dimen>
+    <dimen name="margin_minusMedium">-20dp</dimen>
+
+    <!--Font sizes-->
+    <dimen name="text_size_btn">14sp</dimen>
+    <dimen name="text_size_xxxsmall">1sp</dimen>
+    <dimen name="text_size_xsmall">8sp</dimen>
+    <dimen name="text_size_small">10sp</dimen>
+    <dimen name="text_size_normal">12sp</dimen>
+    <dimen name="text_size_medium">14sp</dimen>
+    <dimen name="text_size_xmedium">16sp</dimen>
+    <dimen name="text_size_large">18sp</dimen>
+    <dimen name="text_size_xlarge">20sp</dimen>
+    <dimen name="text_size_title">36sp</dimen>
+    <dimen name="text_size_subTitle">28sp</dimen>
+
+    <!--Image sizes-->  <!--Check the actual size of the images-->
+    <dimen name="img_width_xxsmall">25dp</dimen>
+    <dimen name="img_width_xsmall">35dp</dimen>
+    <dimen name="img_width_small">40dp</dimen>
+    <dimen name="img_width_normal">100dp</dimen>
+    <dimen name="img_width_medium">150dp</dimen>
+    <dimen name="img_width_large">250dp</dimen>
+    <dimen name="img_width_xlarge">350dp</dimen>
+
+
+    <dimen name="img_size_small">50dp</dimen>
+    <dimen name="img_size_small1">75dp</dimen>
+    <dimen name="img_size_normal">100dp</dimen>
+    <dimen name="img_size_xnormal">120dp</dimen>
+
+    <dimen name="img_size_medium">150dp</dimen>
+    <dimen name="img_size_large">200dp</dimen>
+
+
+    <dimen name="margin_xxSmall">2dp</dimen>
+    <dimen name="margin_xxxSmall">1dp</dimen>
+
+    <dimen name="dialog_width">80%</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">250dp</dimen>
+
+    <!--<item type="dimen" name="dialog_width">50%</item>-->
+
+    <dimen name="speech_bubble_corners">10dp</dimen>
+    <dimen name="speech_bubble_corners_plus_tail">15dp</dimen>
+    <dimen name="speech_bubble_spacing">5dp</dimen>
+    <dimen name="speech_bubble_tail">25dp</dimen>
+
+</resources>

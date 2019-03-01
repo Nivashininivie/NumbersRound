@@ -1,0 +1,120 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBarNoStatusBar">
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!--Custom Themes by Me-->
+    <style name="MyAppTheme" parent="MyAppTheme.Base" />
+
+    <style name="MyAppTheme.Base" parent="Theme.MaterialComponents.Light.NoActionBar">  <!--Theme.AppCompat.Light.DarkActionBar-->
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:buttonStyle">@style/AppButtonStyle</item>
+        <item name="android:textViewStyle">@style/AppTextViewStyle</item>
+        <item name="android:editTextStyle">@style/AppEditTextStyle
+        </item>  <!--using android namespace, edittext theme not setting, so removed it-->
+        <item name="android:fontFamily">lato_bold_italic</item>
+    </style>
+
+    <style name="AlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="AppEditTextStyle" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox.Dense">
+        <item name="android:textSize">@dimen/text_size_normal</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/colorTextBlack</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:strokeColor">@color/colorPrimary</item>
+        <item name="android:padding">@dimen/margin_Normal</item>
+        <item name="android:fontFamily">@font/lato_italic</item>
+    </style>
+
+    <style name="AppButtonStyle" parent="Widget.MaterialComponents.Button">   <!--//"android:style/Widget.Button">-->
+        <item name="android:textSize">@dimen/text_size_large</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:layout_marginLeft">@dimen/margin_xxxLarge</item>
+        <item name="android:layout_marginRight">@dimen/margin_xxxLarge</item>
+        <item name="android:buttonCornerRadius">@dimen/margin_Small</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/margin_Small</item>
+        <item name="android:fontFamily">@font/lato_italic</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppButtonStyleWithoutMargin" parent="Widget.MaterialComponents.Button">   <!--//"android:style/Widget.Button">-->
+        <item name="android:textSize">@dimen/text_size_large</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:layout_margin">@dimen/margin_xSmall</item>
+        <item name="android:buttonCornerRadius">@dimen/margin_Small</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/margin_Small</item>
+        <item name="android:fontFamily">@font/lato_italic</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppButtonStyleOutlined" parent="Widget.MaterialComponents.Button.OutlinedButton">   <!--//"android:style/Widget.Button">-->
+        <item name="android:textSize">@dimen/text_size_large</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:layout_margin">@dimen/margin_xSmall</item>
+        <item name="android:buttonCornerRadius">@dimen/margin_Small</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/margin_Small</item>
+        <item name="strokeColor">@color/colorWhite</item>
+        <item name="strokeWidth">@dimen/margin_xxSmall</item>
+        <item name="android:fontFamily">@font/lato_italic</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/lato_bold_italic</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/margin_Small</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/margin_xSmall</item>
+        <item name="android:textColor">@color/colorTextGrey</item>
+        <item name="android:textSize">@dimen/text_size_normal</item>
+    </style>
+
+    <style name="AppTextViewTitleStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/lato_bold_italic</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/margin_Small</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/margin_xSmall</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+    </style>
+
+    <style name="Toolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">?attr/colorAccent</item>
+        <item name="android:theme">@style/AppTheme</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="titleTextAppearance">@style/Toolbar</item>
+    </style>
+
+</resources>

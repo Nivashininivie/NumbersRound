@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="colorWindowBg">#EDF0F2</color>
+    <color name="colorWindowLightBg">#DAEDF0F2</color>
+    <color name="colorWindowLightestBg">#A6EDF0F2</color>
+    <color name="colorTextBlack">#000000</color>
+    <color name="colorTextGrey">#5f7481</color>
+    <color name="textColorTitle">#616161</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorGreen">#559848</color>
+    <color name="colorRed">#FF0000</color>
+    <color name="colorBlue">#2196F3</color>
+    <color name="colorPink">#E91E63</color>
+    <color name="colorYellow">#FFC107</color>
+    <color name="colorOrange">#FF3D00</color>
+    <item name="blue" type="color">#00CED1</item>
+    <item name="orange" type="color">#FF9100</item>
+    <item name="purple" type="color">#AA00FF</item>
+    <item name="yellow" type="color">#FFFF00</item>
+    <item name="teal" type="color">#1DE9B6</item>
+    <item name="pink" type="color">#d80073</item>
+    <item name="green" type="color">#00C853</item>
+    <item name="red" type="color">#FF0000</item>
+    <item name="lime" type="color">#EEFF41</item>
+    <item name="brown" type="color">#8D6E63</item>
+    <item name="darkblue" type="color">#0000FF</item>
+    <item name="darkorange" type="color">#E65100</item>
+    <item name="darkpurple" type="color">#4A148C</item>
+    <item name="darkyellow" type="color">#FFD600</item>
+    <item name="darkTeal" type="color">#00BFA5</item>
+    <item name="darkpink" type="color">#880E4F</item>
+    <item name="darkgreen" type="color">#1B5E20</item>
+    <item name="darkred" type="color">#a20025</item>
+    <item name="darklime" type="color">#AEEA00</item>
+    <item name="darkbrown" type="color">#3E2723</item>
+
+    <integer-array name="random_colors_array">
+        <item>@color/blue</item>
+        <item>@color/orange</item>
+        <item>@color/purple</item>
+        <item>@color/red</item>
+        <item>@color/green</item>
+        <item>@color/pink</item>
+        <item>@color/darkblue</item>
+        <item>@color/darkorange</item>
+        <item>@color/darkpurple</item>
+        <item>@color/darkred</item>
+        <item>@color/darkgreen</item>
+        <item>@color/darkpink</item>
+
+    </integer-array>
+</resources>
