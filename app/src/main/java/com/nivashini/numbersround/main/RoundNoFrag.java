@@ -7,7 +7,6 @@ import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -27,8 +26,8 @@ import android.widget.TextView;
 import com.nivashini.numbersround.R;
 import com.nivashini.numbersround.datatransaction.MStepDetails;
 import com.nivashini.numbersround.datatransaction.RoundingStepsListAdapter;
-import com.nivashini.numbersround.utilspkg.AppConstant;
-import com.nivashini.numbersround.utilspkg.AppUtils;
+import com.nivashini.numbersround.utils.AppConstant;
+import com.nivashini.numbersround.utils.AppUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -188,7 +187,7 @@ public class RoundNoFrag extends Fragment implements View.OnClickListener {
         linLayContainer.addView(tablerow2);
     }
 
-    public void generateButton(TableRow tableRow, TextView button, String text, int paddingStart, int paddingTop, int paddingEnd, int paddingBottom) {
+    private void generateButton(TableRow tableRow, TextView button, String text, int paddingStart, int paddingTop, int paddingEnd, int paddingBottom) {
         TableRow.LayoutParams trLayoutParams = new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
         button.setLayoutParams(trLayoutParams);
         button.setText(text);
@@ -199,6 +198,7 @@ public class RoundNoFrag extends Fragment implements View.OnClickListener {
         tableRow.addView(button);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -244,64 +244,20 @@ public class RoundNoFrag extends Fragment implements View.OnClickListener {
                 break;
             case R.id.btnEqual:
                 if (btnCount == 2) {
-                    Log.i("division result", String.valueOf(num1 % num2));
-                    RoundingStepsListAdapter adapter;
-                    int lastResult = 0;
                     if (strOperator.equals("/")) {
                         if (num1 % num2 != 0) {
-                            appUtils.showLongToast(context, "Result discarded! Please select some other operation");
-                            tvTypedNo.setText(String.valueOf(num1));
-                            btnCount = 1;
-                            makeTransformations(AppConstant.DELETE_LAST);
+                            setErrorMsg();
                         } else {
-                            lastResult = sum;
-                            if (lastResult == Integer.valueOf(strGeneratedNo)) {
-                                timer.cancel();
-                            } else {
-                                tvTypedNo.setText(String.valueOf(lastResult));
-                                stepsList.add(new MStepDetails(String.valueOf(num1), strOperator, String.valueOf(num2), String.valueOf(sum)));
-                                strOperator = "";
-                                sum = 0;
-                                btnCount = 1;
-                                num1 = lastResult;
-                                btnBackSpace.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_clear));
-//                            makeTransformations(AppConstant.REPLACE_WITH_RESULT);
-                                btnBackSpace.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_clear));
-                                TextView tv = getView().findViewById(selectedBtnId1);
-                                tv.setVisibility(View.GONE);
-                                TextView tv2 = getView().findViewById(selectedBtnId2);
-                                tv2.setVisibility(View.GONE);
-                                adapter = new RoundingStepsListAdapter(context, stepsList);
-                                rvStepsInvolved.setAdapter(adapter);
-                            }
+                            setResult();
                         }
                     } else if (sum > 999 || sum < 1) {
-                        appUtils.showLongToast(context, "Result discarded! Please select some other operation");
-                        tvTypedNo.setText(String.valueOf(num1));
-                        btnCount = 1;
-                        makeTransformations(AppConstant.DELETE_LAST);
+                        setErrorMsg();
                     } else {
-                        lastResult = sum;
-                        tvTypedNo.setText(String.valueOf(lastResult));
-                        stepsList.add(new MStepDetails(String.valueOf(num1), strOperator, String.valueOf(num2), String.valueOf(sum)));
-                        strOperator = "";
-                        sum = 0;
-                        btnCount = 1;
-                        num1 = lastResult;
-                        btnBackSpace.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_clear));
-//                        makeTransformations(AppConstant.REPLACE_WITH_RESULT);
-                        btnBackSpace.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_clear));
-                        TextView tv = getView().findViewById(selectedBtnId1);
-                        tv.setVisibility(View.GONE);
-                        TextView tv2 = getView().findViewById(selectedBtnId2);
-                        tv2.setVisibility(View.GONE);
-                        adapter = new RoundingStepsListAdapter(context, stepsList);
-                        rvStepsInvolved.setAdapter(adapter);
+                        setResult();
                     }
                 }
                 break;
             case R.id.btnBackSpace:
-                appUtils.showLongToast(context, "Logn clicked");
                 if (btnBackSpace.getDrawable().equals(context.getResources().getDrawable(R.drawable.ic_clear)))
                     makeTransformations(AppConstant.CLEAR_ALL);
                 else
@@ -327,8 +283,8 @@ public class RoundNoFrag extends Fragment implements View.OnClickListener {
 //                        tvBtn2 = btn;
                         makeTransformations(AppConstant.DISABLE);
                         num2 = Integer.parseInt(btn.getText().toString());
-                        Log.i("Val of num2", String.valueOf(num2));
-                        tvTypedNo.setText(String.valueOf(num1) + strOperator + String.valueOf(num2));
+                        String typedNo = String.valueOf(num1) + strOperator + String.valueOf(num2);
+                        tvTypedNo.setText(typedNo);
                         switch (strOperator) {
                             case "+":
                                 sum = num1 + num2;
@@ -362,18 +318,21 @@ public class RoundNoFrag extends Fragment implements View.OnClickListener {
                         if (trView instanceof TextView) {
                             switch (action) {
                                 case AppConstant.CLEAR_ALL:
-                                    trView.setEnabled(true);
-                                    noList.clear();
-                                    noList.addAll(actualNoList);
-                                    generateDynLayouts();
+//                                    noList.clear();
+//                                    noList.addAll(actualNoList);
+                                    tvTypedNo.setText("");
+                                    trView.setVisibility(View.VISIBLE);
                                     break;
                                 case AppConstant.DELETE_LAST:
                                     if (trView.getId() == selectedBtnId1) {
                                         tvTypedNo.setText("");
+                                        btnCount = 0;
                                     } else if (trView.getId() == selectedBtnId2) {
                                         tvTypedNo.setText(num1 + strOperator);
+                                        btnCount = 1;
                                     } else {
                                         tvTypedNo.setText(String.valueOf(num1)); //to remove any operator if available
+                                        btnCount = 1;
                                     }
                                     break;
                             }
@@ -385,38 +344,42 @@ public class RoundNoFrag extends Fragment implements View.OnClickListener {
             appUtils.showShortToast(context, "btn pressed");
         }
     }
+
+    private void setErrorMsg() {
+        appUtils.showLongToast(context, "Result discarded! Please select some other operation");
+        tvTypedNo.setText(String.valueOf(num1));
+        btnCount = 1;
+        makeTransformations(AppConstant.DELETE_LAST);
+    }
+
+    private void setResult() {
+        RoundingStepsListAdapter adapter;
+        int lastResult = sum;
+        if (lastResult == Integer.valueOf(strGeneratedNo)) {
+            timer.cancel();
+            stepsList.add(new MStepDetails(String.valueOf(num1), strOperator, String.valueOf(num2), String.valueOf(sum)));
+            adapter = new RoundingStepsListAdapter(context, stepsList);
+            rvStepsInvolved.setAdapter(adapter);
+            appUtils.showCustomDlgWithOkay(context, "Congratulations!", "You have generated the solution for random number");
+        } else {
+            tvTypedNo.setText(String.valueOf(lastResult));
+            stepsList.add(new MStepDetails(String.valueOf(num1), strOperator, String.valueOf(num2), String.valueOf(sum)));
+            adapter = new RoundingStepsListAdapter(context, stepsList);
+            rvStepsInvolved.setAdapter(adapter);
+            strOperator = "";
+            sum = 0;
+            btnCount = 1;
+            num1 = lastResult;
+            btnBackSpace.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_clear));
+            if (getView() != null) {
+                TextView tv = getView().findViewById(selectedBtnId1);
+                tv.setVisibility(View.GONE);
+                TextView tv2 = getView().findViewById(selectedBtnId2);
+                tv2.setVisibility(View.GONE);
+            }
+
+        }
+    }
 }
 
 
-//    String num1 = "", num2 = "";
-//                                    if (trView.getId() == selectedBtnId1) {
-//                                        num1 = ((TextView) trView).getText().toString();
-//                                        noList.remove(((TextView) trView).getText().toString());
-//                                    } else {
-////                                        num2 = ((TextView) trView).getText().toString();
-//                                        noList.remove(((TextView) trView).getText().toString());
-//                                    }
-
-//                                    int pos = noList.indexOf(num1);
-
-//                                    for (int i = 0; i < noList.size(); i++) {
-//                                        Log.i("calss in loop", String.valueOf(i));
-//                                        if (trView.getId() == selectedBtnId1) {
-////                                            num1 = ((TextView) trView).getText().toString();
-//                                            noList.remove(((TextView) trView).getText().toString());
-////                                            selectedBtnId1 = i;
-//                                        } else if (trView.getId() == selectedBtnId2) {
-////                                            num2 = ((TextView) trView).getText().toString();
-////                                            selectedBtnId2 = i;
-//                                            noList.remove(((TextView) trView).getText().toString());
-//                                        }
-//                                    }
-
-
-//                                    for (Iterator<String> iterator = noList.iterator(); iterator.hasNext(); ) {
-//                                        String item = iterator.next();
-//                                        if (String.valueOf(num1).equals(item) || String.valueOf(num2).equals(item))
-//                                            iterator.remove();
-//                                        System.out.println(item);
-//                                    }
-//                                    appUtils.showLongToast(context, "size of array aft removing" + String.valueOf(noList.size()));

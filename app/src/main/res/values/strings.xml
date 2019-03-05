@@ -15,4 +15,6 @@
     <string name="clr">CLR</string>
     <string name="restart">Restart</string>
     <string name="solution">Solution</string>
+    <string name="okay">Okay</string>
+    <string name="steps_generated_by_you">Steps generated</string>
 </resources>

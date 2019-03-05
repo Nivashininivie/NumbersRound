@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="@dimen/margin_Small"
+    app:cardBackgroundColor="@color/colorWhite"
+    app:cardCornerRadius="@dimen/margin_Small"
+    app:cardElevation="@dimen/margin_Small">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_xxSmall"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_Normal">
+
+        <TextView
+            android:id="@+id/tvDlgTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="@dimen/margin_Small"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/text_size_large"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/ivAlertIcon"
+            android:layout_width="@dimen/img_width_xsmall"
+            android:layout_height="@dimen/img_width_xsmall"
+            android:layout_margin="@dimen/margin_xSmall"
+            android:src="@drawable/ic_alert_bell"
+            android:tint="@color/colorBlack" />
+
+        <TextView
+            android:id="@+id/tvAlertContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_xSmall"
+            android:gravity="center"
+            android:padding="@dimen/margin_xSmall"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/text_size_medium" />
+
+        <Button
+            android:id="@+id/btnAlertOkay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_xxxLarge"
+            android:layout_marginTop="@dimen/margin_Small"
+            android:layout_marginRight="@dimen/margin_xxxLarge"
+            android:layout_marginBottom="@dimen/margin_Small"
+            android:padding="@dimen/margin_Small"
+            android:text="@string/okay"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_size_medium"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

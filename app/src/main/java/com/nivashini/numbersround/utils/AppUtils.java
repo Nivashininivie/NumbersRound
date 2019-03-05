@@ -1,16 +1,26 @@
-package com.nivashini.numbersround.utilspkg;
+package com.nivashini.numbersround.utils;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.Display;
+import android.view.Gravity;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.nivashini.numbersround.main.MainActivity;
 import com.nivashini.numbersround.R;
+import com.nivashini.numbersround.main.MainActivity;
 
 import java.io.PrintStream;
 import java.text.DecimalFormat;
@@ -120,6 +130,40 @@ public class AppUtils {
                 manager.beginTransaction().replace(container, fragment, backStateName).disallowAddToBackStack().commit();
             }
         }
+    }
+
+    public void showCustomDlgWithOkay(final Context context, String dlgTitle, String dlgContent) {
+        final Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.layout_custom_alert_single_btn_dlg);
+//        dialog.setCancelable(false);
+
+        Window window = dialog.getWindow();
+        if (window != null) {
+            Point size = new Point();
+            Display display = window.getWindowManager().getDefaultDisplay();
+            display.getSize(size);
+            int width = size.x;
+            window.setLayout((int) (width * 0.90), WindowManager.LayoutParams.WRAP_CONTENT);
+            window.setGravity(Gravity.CENTER);
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
+        TextView tvTitle = dialog.findViewById(R.id.tvDlgTitle);
+        TextView tvDlgContent = dialog.findViewById(R.id.tvAlertContent);
+        ImageView ivAlertIcon = dialog.findViewById(R.id.ivAlertIcon);
+
+        ivAlertIcon.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_alert_bell));
+        tvTitle.setText(dlgTitle);
+        tvDlgContent.setText(dlgContent);
+
+        Button btnOkay = dialog.findViewById(R.id.btnAlertOkay);
+        btnOkay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                ((MainActivity) context).getSupportFragmentManager().popBackStackImmediate();
+            }
+        });
+        dialog.show();
     }
 
     public void hideSoftKeyboard(Activity activity) {

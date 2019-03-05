@@ -140,7 +140,6 @@
                         android:contentDescription="@string/prompt_null"
                         android:src="@drawable/ic_equal" />
 
-
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
@@ -162,6 +161,10 @@
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
+
+        <TextView
+            style="@style/AppTextViewTitleStyle"
+            android:text="@string/steps_generated_by_you" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvSteps"

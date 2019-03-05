@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.nivashini.numbersround.R;
-import com.nivashini.numbersround.utilspkg.AppUtils;
+import com.nivashini.numbersround.utils.AppUtils;
 
 import java.util.ArrayList;
 

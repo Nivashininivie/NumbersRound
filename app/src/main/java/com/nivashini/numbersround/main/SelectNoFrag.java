@@ -15,8 +15,8 @@ import android.widget.TableRow;
 
 import com.google.android.material.button.MaterialButton;
 import com.nivashini.numbersround.R;
-import com.nivashini.numbersround.utilspkg.AppConstant;
-import com.nivashini.numbersround.utilspkg.AppUtils;
+import com.nivashini.numbersround.utils.AppConstant;
+import com.nivashini.numbersround.utils.AppUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -104,34 +104,27 @@ public class SelectNoFrag extends Fragment implements View.OnClickListener {
             generateButton(trBigNoCont, button, String.valueOf(bigNolist.get(i)), 24, 100, 24, 100);
         }
         for (int j = 0; j < smallNoList.size(); j++) {
+            MaterialButton button = new MaterialButton(context);
+            button.setId(View.generateViewId());
+            button.setOnClickListener(this);
             if (j < 5) {
-                MaterialButton button = new MaterialButton(context);
-                button.setId(View.generateViewId());
-                button.setOnClickListener(this);
                 trSmallNocont1.setWeightSum(5);
                 generateButton(trSmallNocont1, button, String.valueOf(smallNoList.get(j)), 8, 75, 8, 75);
             } else if (j < 10) {
                 trSmallNocont2.setWeightSum(5);
-                MaterialButton button = new MaterialButton(context);
-                button.setId(View.generateViewId());
-                button.setOnClickListener(this);
                 generateButton(trSmallNocont2, button, String.valueOf(smallNoList.get(j)), 8, 75, 8, 75);
             }
         }
         Collections.shuffle(smallNoList, new Random());
         for (int j = 0; j < smallNoList.size(); j++) {
+            MaterialButton button = new MaterialButton(context);
+            button.setId(View.generateViewId());
+            button.setOnClickListener(this);
             if (j < 5) {
-                MaterialButton button = new MaterialButton(context);
-                trSmallNocont1.setWeightSum(5);
-                button.setId(View.generateViewId());
-                button.setOnClickListener(this);
+                trSmallNocont3.setWeightSum(5);
                 generateButton(trSmallNocont3, button, String.valueOf(smallNoList.get(j)), 8, 75, 8, 75);
             } else if (j < 10) {
-                trSmallNocont2.setWeightSum(5);
-                MaterialButton button = new MaterialButton(context);
-                button.setId(View.generateViewId());
-                // set other stuff and add to layout
-                button.setOnClickListener(this);
+                trSmallNocont4.setWeightSum(5);
                 generateButton(trSmallNocont4, button, String.valueOf(smallNoList.get(j)), 8, 75, 8, 75);
             }
         }
@@ -142,6 +135,7 @@ public class SelectNoFrag extends Fragment implements View.OnClickListener {
         linLayViewCont.addView(trSmallNocont4);
     }
 
+    // set other stuff and add to layout
     private void generateButton(TableRow tableRow, MaterialButton button, String text, int paddingStart, int paddingTop, int paddingEnd, int paddingBottom) {
         TableRow.LayoutParams trLayoutParams = new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
         trLayoutParams.setMargins(16, 16, 16, 16);
@@ -188,7 +182,7 @@ public class SelectNoFrag extends Fragment implements View.OnClickListener {
                 appUtils.showLongToast(context, "You have reached maximum no of clicks. Click generate button to proceed");
             } else {
                 btn.setTextSize(14);
-                int selectedBtnId = v.getId();
+                int selectedBtnId;
                 if (oldBtnId == -1) {
                     oldBtnId = v.getId();
                     selectedBtnId = v.getId();
