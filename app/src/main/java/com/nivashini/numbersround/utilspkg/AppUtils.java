@@ -9,7 +9,7 @@ import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
-import com.nivashini.numbersround.MainActivity;
+import com.nivashini.numbersround.main.MainActivity;
 import com.nivashini.numbersround.R;
 
 import java.io.PrintStream;

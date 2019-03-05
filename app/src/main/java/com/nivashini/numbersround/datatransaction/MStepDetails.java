@@ -1,4 +1,4 @@
-package com.nivashini.numbersround;
+package com.nivashini.numbersround.datatransaction;
 
 public class MStepDetails {
     String firstNo = "", operator = "", secondNo = "", result = "";

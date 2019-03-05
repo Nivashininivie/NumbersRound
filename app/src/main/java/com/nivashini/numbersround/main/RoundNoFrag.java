@@ -1,7 +1,9 @@
-package com.nivashini.numbersround;
+package com.nivashini.numbersround.main;
 
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -22,6 +24,9 @@ import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.nivashini.numbersround.R;
+import com.nivashini.numbersround.datatransaction.MStepDetails;
+import com.nivashini.numbersround.datatransaction.RoundingStepsListAdapter;
 import com.nivashini.numbersround.utilspkg.AppConstant;
 import com.nivashini.numbersround.utilspkg.AppUtils;
 
@@ -34,20 +39,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class RoundNoFrag extends Fragment implements View.OnClickListener {
 
-    private TextView tvRandomNo, tvTypedNo, tvBtn1, tvBtn2, tvTimer;
+    private TextView tvTypedNo;
+    private TextView tvTimer;
     private RecyclerView rvStepsInvolved;
-    private ImageButton btnAdd, btnSubtract, btnMultiply, btnDivide, btnEqual, btnBackSpace;
+    private ImageButton btnBackSpace;
     private LinearLayout linLayContainer;
     private ArrayList<String> noList = new ArrayList<>(), actualNoList = new ArrayList<>();
-    private RoundingStepsListAdapter adapter;
     private ArrayList<MStepDetails> stepsList = new ArrayList<>();
-    CountDownTimer timer;
-    ;
-    private AppUtils appUtils = new AppUtils();
-    private TableRow tablerow1, tablerow2;
-    private String strSelectedNos = "", strOperator = "", strFormula = "", strGeneratedNo = "";
+    private CountDownTimer timer;
+    private Context context;
 
-    private int btnCount = 0, sum = 0, num1 = 0, num2 = 0, selectedBtnId1 = 0, selectedBtnId2 = 0, lastResult = 0;
+    private AppUtils appUtils = new AppUtils();
+    private String strOperator = "", strFormula = "", strGeneratedNo = "";
+
+    private int btnCount = 0, sum = 0, num1 = 0, num2 = 0, selectedBtnId1 = 0, selectedBtnId2 = 0;
     private boolean isOperatorClicked = false;
 
     public RoundNoFrag() {
@@ -61,13 +66,19 @@ public class RoundNoFrag extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_round_no, container, false);
-        tvRandomNo = view.findViewById(R.id.tvRandomNo);
+
+        if (getActivity() != null) {
+            context = getActivity();
+            appUtils.setToolBarTitle(((MainActivity) getActivity()).getSupportActionBar(), AppConstant.ROUND_NO_TITLE);
+        }
+
+        TextView tvRandomNo = view.findViewById(R.id.tvRandomNo);
         rvStepsInvolved = view.findViewById(R.id.rvSteps);
-        btnAdd = view.findViewById(R.id.btnAdd);
-        btnSubtract = view.findViewById(R.id.btnSubtract);
-        btnMultiply = view.findViewById(R.id.btnMultiply);
-        btnDivide = view.findViewById(R.id.btnDivide);
-        btnEqual = view.findViewById(R.id.btnEqual);
+        ImageButton btnAdd = view.findViewById(R.id.btnAdd);
+        ImageButton btnSubtract = view.findViewById(R.id.btnSubtract);
+        ImageButton btnMultiply = view.findViewById(R.id.btnMultiply);
+        ImageButton btnDivide = view.findViewById(R.id.btnDivide);
+        ImageButton btnEqual = view.findViewById(R.id.btnEqual);
         btnBackSpace = view.findViewById(R.id.btnBackSpace);
         tvTypedNo = view.findViewById(R.id.tvTypedNo);
         tvTimer = view.findViewById(R.id.tvTimer);
@@ -75,7 +86,7 @@ public class RoundNoFrag extends Fragment implements View.OnClickListener {
         appUtils.setRvLayout(getActivity(), rvStepsInvolved);
 
         if (getArguments() != null) {
-            strSelectedNos = getArguments().getString(AppConstant.SELECTED_NOS);
+            String strSelectedNos = getArguments().getString(AppConstant.SELECTED_NOS);
             strGeneratedNo = getArguments().getString(AppConstant.GENERATED_NO);
             strFormula = getArguments().getString(AppConstant.FORMULAE);
             if (strSelectedNos != null) {
@@ -84,9 +95,6 @@ public class RoundNoFrag extends Fragment implements View.OnClickListener {
             }
         }
 
-//        int min = 1, max = 999;
-//        int randomNo = new Random().nextInt((max - min) + 1) + min;
-
         tvRandomNo.setText(strGeneratedNo);
         generateDynLayouts();
 
@@ -94,8 +102,8 @@ public class RoundNoFrag extends Fragment implements View.OnClickListener {
 
             @Override
             public void onTick(long millisUntilFinished) {
-                tvTimer.setText(String.valueOf(millisUntilFinished / 1000) + " seconds remaining");
-
+                String strTimerText = String.valueOf(millisUntilFinished / 1000) + " seconds remaining";
+                tvTimer.setText(strTimerText);
                 Animation anim = new AlphaAnimation(0.0f, 1.0f);
                 anim.setDuration(1000); //You can manage the blinking time with this parameter
                 anim.setStartOffset(20);
@@ -106,7 +114,7 @@ public class RoundNoFrag extends Fragment implements View.OnClickListener {
 
             @Override
             public void onFinish() {
-                final Dialog dialog = new Dialog(getActivity());
+                final Dialog dialog = new Dialog(context);
                 dialog.setContentView(R.layout.layout_custom_dlg_two_btn);
                 dialog.setCancelable(false);
 
@@ -160,14 +168,14 @@ public class RoundNoFrag extends Fragment implements View.OnClickListener {
     }
 
     private void generateDynLayouts() {
-        tablerow1 = new TableRow(getActivity());
-        tablerow2 = new TableRow(getActivity());
+        TableRow tablerow1 = new TableRow(context);
+        TableRow tablerow2 = new TableRow(context);
         TableRow.LayoutParams trLayoutParams = new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
         trLayoutParams.setMargins(0, 0, 0, 0);
         tablerow1.setGravity(Gravity.CENTER);
         tablerow2.setGravity(Gravity.CENTER);
         for (int i = 0; i < noList.size(); i++) {
-            TextView button = new TextView(getActivity());
+            TextView button = new TextView(context);
             button.setId(View.generateViewId());
             button.setOnClickListener(this);
             if (i <= 2)
@@ -184,9 +192,9 @@ public class RoundNoFrag extends Fragment implements View.OnClickListener {
         TableRow.LayoutParams trLayoutParams = new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
         button.setLayoutParams(trLayoutParams);
         button.setText(text);
-        button.setTextColor(getActivity().getResources().getColor(R.color.colorAccent));
+        button.setTextColor(context.getResources().getColor(R.color.colorAccent));
         button.setGravity(Gravity.CENTER);
-        button.setBackgroundColor(getActivity().getResources().getColor(R.color.colorWhite));
+        button.setBackgroundColor(context.getResources().getColor(R.color.colorWhite));
         button.setPadding(paddingStart, paddingTop, paddingEnd, paddingBottom);
         tableRow.addView(button);
     }
@@ -195,52 +203,53 @@ public class RoundNoFrag extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnAdd:
-                btnBackSpace.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_backspace));
+                btnBackSpace.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_backspace));
                 if (num1 != 0 || num2 != 0) {
                     strOperator = "+";
                     isOperatorClicked = true;
                     tvTypedNo.setText(String.valueOf(num1) + strOperator);
                 } else {
-                    appUtils.showLongToast(getActivity(), "Select first number to proceed");
+                    appUtils.showLongToast(context, "Select first number to proceed");
                 }
-
                 break;
             case R.id.btnMultiply:
-                btnBackSpace.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_backspace));
+                btnBackSpace.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_backspace));
                 if (num1 != 0 || num2 != 0) {
                     strOperator = "*";
                     isOperatorClicked = true;
                     tvTypedNo.setText(String.valueOf(num1) + strOperator);
                 } else {
-                    appUtils.showLongToast(getActivity(), "Select first number to proceed");
+                    appUtils.showLongToast(context, "Select first number to proceed");
                 }
                 break;
             case R.id.btnSubtract:
-                btnBackSpace.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_backspace));
+                btnBackSpace.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_backspace));
                 if (num1 != 0 || num2 != 0) {
                     strOperator = "-";
                     isOperatorClicked = true;
                     tvTypedNo.setText(String.valueOf(num1) + strOperator);
                 } else {
-                    appUtils.showLongToast(getActivity(), "Select first number to proceed");
+                    appUtils.showLongToast(context, "Select first number to proceed");
                 }
                 break;
             case R.id.btnDivide:
-                btnBackSpace.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_backspace));
+                btnBackSpace.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_backspace));
                 if (num1 != 0 || num2 != 0) {
                     strOperator = "/";
                     isOperatorClicked = true;
                     tvTypedNo.setText(String.valueOf(num1) + strOperator);
                 } else {
-                    appUtils.showLongToast(getActivity(), "Select first number to proceed");
+                    appUtils.showLongToast(context, "Select first number to proceed");
                 }
                 break;
             case R.id.btnEqual:
                 if (btnCount == 2) {
                     Log.i("division result", String.valueOf(num1 % num2));
+                    RoundingStepsListAdapter adapter;
+                    int lastResult = 0;
                     if (strOperator.equals("/")) {
                         if (num1 % num2 != 0) {
-                            appUtils.showLongToast(getActivity(), "Result discarded! Please select some other operation");
+                            appUtils.showLongToast(context, "Result discarded! Please select some other operation");
                             tvTypedNo.setText(String.valueOf(num1));
                             btnCount = 1;
                             makeTransformations(AppConstant.DELETE_LAST);
@@ -255,19 +264,19 @@ public class RoundNoFrag extends Fragment implements View.OnClickListener {
                                 sum = 0;
                                 btnCount = 1;
                                 num1 = lastResult;
-                                btnBackSpace.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_clear));
+                                btnBackSpace.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_clear));
 //                            makeTransformations(AppConstant.REPLACE_WITH_RESULT);
-                                btnBackSpace.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_clear));
+                                btnBackSpace.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_clear));
                                 TextView tv = getView().findViewById(selectedBtnId1);
                                 tv.setVisibility(View.GONE);
                                 TextView tv2 = getView().findViewById(selectedBtnId2);
                                 tv2.setVisibility(View.GONE);
-                                adapter = new RoundingStepsListAdapter(getActivity(), stepsList);
+                                adapter = new RoundingStepsListAdapter(context, stepsList);
                                 rvStepsInvolved.setAdapter(adapter);
                             }
                         }
                     } else if (sum > 999 || sum < 1) {
-                        appUtils.showLongToast(getActivity(), "Result discarded! Please select some other operation");
+                        appUtils.showLongToast(context, "Result discarded! Please select some other operation");
                         tvTypedNo.setText(String.valueOf(num1));
                         btnCount = 1;
                         makeTransformations(AppConstant.DELETE_LAST);
@@ -279,43 +288,43 @@ public class RoundNoFrag extends Fragment implements View.OnClickListener {
                         sum = 0;
                         btnCount = 1;
                         num1 = lastResult;
-                        btnBackSpace.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_clear));
+                        btnBackSpace.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_clear));
 //                        makeTransformations(AppConstant.REPLACE_WITH_RESULT);
-                        btnBackSpace.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_clear));
+                        btnBackSpace.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_clear));
                         TextView tv = getView().findViewById(selectedBtnId1);
                         tv.setVisibility(View.GONE);
                         TextView tv2 = getView().findViewById(selectedBtnId2);
                         tv2.setVisibility(View.GONE);
-                        adapter = new RoundingStepsListAdapter(getActivity(), stepsList);
+                        adapter = new RoundingStepsListAdapter(context, stepsList);
                         rvStepsInvolved.setAdapter(adapter);
                     }
                 }
                 break;
             case R.id.btnBackSpace:
-                appUtils.showLongToast(getActivity(), "Logn clicked");
-                if (btnBackSpace.getDrawable().equals(getActivity().getResources().getDrawable(R.drawable.ic_clear)))
+                appUtils.showLongToast(context, "Logn clicked");
+                if (btnBackSpace.getDrawable().equals(context.getResources().getDrawable(R.drawable.ic_clear)))
                     makeTransformations(AppConstant.CLEAR_ALL);
                 else
                     makeTransformations(AppConstant.DELETE_LAST);
                 break;
             default: {
                 TextView btn = (TextView) v;
-                btnBackSpace.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_backspace));
+                btnBackSpace.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_backspace));
                 btnCount++;
                 if (btnCount == 1) {
                     num1 = Integer.parseInt(btn.getText().toString());
                     tvTypedNo.setText(String.valueOf(num1));
                     selectedBtnId1 = btn.getId();
-                    tvBtn1 = btn;
+//                    tvBtn1 = btn;
                     makeTransformations(AppConstant.DISABLE);
                     btn.setEnabled(false);
                 } else if (btnCount == 2) {
                     if (!isOperatorClicked) {
                         btnCount--;
-                        appUtils.showLongToast(getActivity(), "Select an operator to perform calculation");
+                        appUtils.showLongToast(context, "Select an operator to perform calculation");
                     } else {
                         selectedBtnId2 = btn.getId();
-                        tvBtn2 = btn;
+//                        tvBtn2 = btn;
                         makeTransformations(AppConstant.DISABLE);
                         num2 = Integer.parseInt(btn.getText().toString());
                         Log.i("Val of num2", String.valueOf(num2));
@@ -341,6 +350,7 @@ public class RoundNoFrag extends Fragment implements View.OnClickListener {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private void makeTransformations(String action) {
         if (linLayContainer.getChildCount() != 0) {
             for (int a = 0; a < linLayContainer.getChildCount(); a++) {
@@ -372,7 +382,7 @@ public class RoundNoFrag extends Fragment implements View.OnClickListener {
                 }
             }
         } else {
-            appUtils.showShortToast(getActivity(), "btn pressed");
+            appUtils.showShortToast(context, "btn pressed");
         }
     }
 }
@@ -409,4 +419,4 @@ public class RoundNoFrag extends Fragment implements View.OnClickListener {
 //                                            iterator.remove();
 //                                        System.out.println(item);
 //                                    }
-//                                    appUtils.showLongToast(getActivity(), "size of array aft removing" + String.valueOf(noList.size()));
+//                                    appUtils.showLongToast(context, "size of array aft removing" + String.valueOf(noList.size()));

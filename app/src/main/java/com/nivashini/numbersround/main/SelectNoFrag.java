@@ -1,6 +1,7 @@
-package com.nivashini.numbersround;
+package com.nivashini.numbersround.main;
 
 
+import android.content.Context;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TableRow;
 
 import com.google.android.material.button.MaterialButton;
+import com.nivashini.numbersround.R;
 import com.nivashini.numbersround.utilspkg.AppConstant;
 import com.nivashini.numbersround.utilspkg.AppUtils;
 
@@ -26,32 +28,35 @@ import androidx.fragment.app.Fragment;
 
 public class SelectNoFrag extends Fragment implements View.OnClickListener {
 
-    int[] smallNosArray = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    int[] bigNosArray = {25, 50, 75, 100};
-    int selectedBtnId = -1, oldBtnId = -1, btnClickCount = 0;
-    String strGeneratedNo = "", formula = "";
-    LinearLayout linLayViewCont;
-    MaterialButton btnGenerate;
-
-    AppUtils appUtils = new AppUtils();
-    ArrayList<Integer> selectedNosList = new ArrayList<>();
-    ArrayList<String> arrayListSymbol = new ArrayList<>();
+    private int[] smallNosArray = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    private int[] bigNosArray = {25, 50, 75, 100};
+    private int oldBtnId = -1, btnClickCount = 0;
+    private String strGeneratedNo = "", formula = "";
+    private LinearLayout linLayViewCont;
+    private AppUtils appUtils = new AppUtils();
+    private ArrayList<Integer> selectedNosList = new ArrayList<>();
+    private ArrayList<String> arrayListSymbol = new ArrayList<>();
+    private Context context;
 
     public SelectNoFrag() {
-        // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_select_number, container, false);
+
+        if (getActivity() != null) {
+            context = getActivity();
+            appUtils.setToolBarTitle(((MainActivity) getActivity()).getSupportActionBar(), AppConstant.SELECTED_NOS);
+        }
+
         linLayViewCont = view.findViewById(R.id.linLayParent);
-        btnGenerate = view.findViewById(R.id.btnGenerate);
+        MaterialButton btnGenerate = view.findViewById(R.id.btnGenerate);
         btnGenerate.setOnClickListener(this);
 
         //Generate buttons with numbers hidden
@@ -75,15 +80,16 @@ public class SelectNoFrag extends Fragment implements View.OnClickListener {
     }
 
     private void generateDynLayouts() {
-        TableRow trBigNoCont = new TableRow(getActivity());
-        TableRow trSmallNocont1 = new TableRow(getActivity());
-        TableRow trSmallNocont2 = new TableRow(getActivity());
-        TableRow trSmallNocont3 = new TableRow(getActivity());
-        TableRow trSmallNocont4 = new TableRow(getActivity());
+        TableRow trBigNoCont = new TableRow(context);
+        TableRow trSmallNocont1 = new TableRow(context);
+        TableRow trSmallNocont2 = new TableRow(context);
+        TableRow trSmallNocont3 = new TableRow(context);
+        TableRow trSmallNocont4 = new TableRow(context);
         TableRow.LayoutParams trLayoutParams = new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
         trLayoutParams.setMargins(16, 16, 16, 16);
         List<Integer> bigNolist = new ArrayList<>(), smallNoList = new ArrayList<>();
-        int id = 100;
+
+        //shuffling the array value to show on button randomly
         for (int i : bigNosArray)
             bigNolist.add(i);
         Collections.shuffle(bigNolist, new Random());
@@ -92,21 +98,21 @@ public class SelectNoFrag extends Fragment implements View.OnClickListener {
         Collections.shuffle(smallNoList, new Random());
 
         for (int i = 0; i < bigNolist.size(); i++) {
-            MaterialButton button = new MaterialButton(getActivity());
+            MaterialButton button = new MaterialButton(context);
             button.setId(View.generateViewId());
             button.setOnClickListener(this);
             generateButton(trBigNoCont, button, String.valueOf(bigNolist.get(i)), 24, 100, 24, 100);
         }
         for (int j = 0; j < smallNoList.size(); j++) {
             if (j < 5) {
-                MaterialButton button = new MaterialButton(getActivity());
+                MaterialButton button = new MaterialButton(context);
                 button.setId(View.generateViewId());
                 button.setOnClickListener(this);
                 trSmallNocont1.setWeightSum(5);
                 generateButton(trSmallNocont1, button, String.valueOf(smallNoList.get(j)), 8, 75, 8, 75);
             } else if (j < 10) {
                 trSmallNocont2.setWeightSum(5);
-                MaterialButton button = new MaterialButton(getActivity());
+                MaterialButton button = new MaterialButton(context);
                 button.setId(View.generateViewId());
                 button.setOnClickListener(this);
                 generateButton(trSmallNocont2, button, String.valueOf(smallNoList.get(j)), 8, 75, 8, 75);
@@ -115,14 +121,14 @@ public class SelectNoFrag extends Fragment implements View.OnClickListener {
         Collections.shuffle(smallNoList, new Random());
         for (int j = 0; j < smallNoList.size(); j++) {
             if (j < 5) {
-                MaterialButton button = new MaterialButton(getActivity());
+                MaterialButton button = new MaterialButton(context);
                 trSmallNocont1.setWeightSum(5);
                 button.setId(View.generateViewId());
                 button.setOnClickListener(this);
                 generateButton(trSmallNocont3, button, String.valueOf(smallNoList.get(j)), 8, 75, 8, 75);
             } else if (j < 10) {
                 trSmallNocont2.setWeightSum(5);
-                MaterialButton button = new MaterialButton(getActivity());
+                MaterialButton button = new MaterialButton(context);
                 button.setId(View.generateViewId());
                 // set other stuff and add to layout
                 button.setOnClickListener(this);
@@ -136,7 +142,7 @@ public class SelectNoFrag extends Fragment implements View.OnClickListener {
         linLayViewCont.addView(trSmallNocont4);
     }
 
-    public void generateButton(TableRow tableRow, MaterialButton button, String text, int paddingStart, int paddingTop, int paddingEnd, int paddingBottom) {
+    private void generateButton(TableRow tableRow, MaterialButton button, String text, int paddingStart, int paddingTop, int paddingEnd, int paddingBottom) {
         TableRow.LayoutParams trLayoutParams = new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
         trLayoutParams.setMargins(16, 16, 16, 16);
         int[] androidColors = getResources().getIntArray(R.array.random_colors_array);
@@ -156,7 +162,7 @@ public class SelectNoFrag extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         if (v.getId() == R.id.btnGenerate) {
             if (selectedNosList.size() < 6) {
-                appUtils.showLongToast(getActivity(), "Please select 6 numbers to proceed");
+                appUtils.showLongToast(context, "Please select 6 numbers to proceed");
             } else {
                 boolean isNoGenerated = generateRandomNumber();
                 if (isNoGenerated) {
@@ -168,7 +174,7 @@ public class SelectNoFrag extends Fragment implements View.OnClickListener {
                     bundle.putString(AppConstant.GENERATED_NO, strGeneratedNo);
 //                bundle.putIntegerArrayList(AppConstant.SELECTED_NOS, selectedNosList);
                     roundNoFrag.setArguments(bundle);
-                    appUtils.goToFragment(getActivity(), R.id.main_act_frag_container, roundNoFrag, true);
+                    appUtils.goToFragment(context, R.id.main_act_frag_container, roundNoFrag, true);
                     selectedNosList.clear();
                 } else {
 
@@ -179,10 +185,10 @@ public class SelectNoFrag extends Fragment implements View.OnClickListener {
             Button btn = (Button) v;
             btnClickCount++;
             if (btnClickCount > 6) {
-                appUtils.showLongToast(getActivity(), "You have reached maximum no of clicks. Click generate button to proceed");
+                appUtils.showLongToast(context, "You have reached maximum no of clicks. Click generate button to proceed");
             } else {
                 btn.setTextSize(14);
-                selectedBtnId = v.getId();
+                int selectedBtnId = v.getId();
                 if (oldBtnId == -1) {
                     oldBtnId = v.getId();
                     selectedBtnId = v.getId();
@@ -190,21 +196,15 @@ public class SelectNoFrag extends Fragment implements View.OnClickListener {
                     selectedNosList.add(Integer.parseInt(selectedNo));
                 } else {
                     selectedBtnId = v.getId();
-                    Log.i("selectedBtnId ass", String.valueOf(selectedBtnId));
                     if (oldBtnId == selectedBtnId) {
                         btnClickCount--;
-                        Log.i("oldBtnId equ", String.valueOf(oldBtnId));
-                        Log.i("selectedBtnId equ", String.valueOf(selectedBtnId));
-                        appUtils.showLongToast(getActivity(), "You have already selected this button");
+                        appUtils.showLongToast(context, "You have already selected this button");
                         return;
                     } else {
-                        Log.i("oldBtnId nex", String.valueOf(oldBtnId));
-                        Log.i("selectedBtnId nex", String.valueOf(selectedBtnId));
                         String selectedNo = btn.getText().toString();
                         selectedNosList.add(Integer.parseInt(selectedNo));
                     }
                     oldBtnId = selectedBtnId;
-                    Log.i("oldBtnId ass", String.valueOf(selectedBtnId));
                 }
             }
         }
@@ -259,8 +259,8 @@ public class SelectNoFrag extends Fragment implements View.OnClickListener {
             return false;
         } else {
             strGeneratedNo = String.valueOf(Math.round(total));
-            Log.i("strGeneratedNo", strGeneratedNo);
             formula = stringBufferFormulae.toString();
+            Log.i("formula", formula);
             return true;
         }
     }
