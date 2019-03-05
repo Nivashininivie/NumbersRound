@@ -1,41 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_act_frag_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    tools:context=".MainActivity">
+    android:layout_marginBottom="@dimen/margin_Small"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-
-    <LinearLayout
-        android:id="@+id/linLayParent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_Small"
-        android:orientation="vertical">
-
-        <TextView
-            style="@style/AppTextViewTitleStyle"
-            android:text="@string/select_boxes_content" />
-
-        <TextView
-            android:id="@+id/tvSelectedNos"
-            style="@style/AppTextViewStyle"
-             />
-    </LinearLayout>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnGenerate"
-        style="@style/AppButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linLayParent"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/margin_Medium"
-        android:paddingStart="@dimen/margin_Large"
-        android:paddingEnd="@dimen/margin_Large"
-        android:text="@string/generate"
-        app:cornerRadius="@dimen/margin_Large" />
-
-</RelativeLayout>

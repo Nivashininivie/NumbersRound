@@ -2,4 +2,17 @@
     <string name="app_name">Numbers Round</string>
     <string name="generate">Generate</string>
     <string name="select_boxes_content">Select any of the six boxes given below and click on the generate button to start the game</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="selected_numbers_are_given_below">Selected numbers are given below</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+    <string name="multiply">*</string>
+    <string name="division">/</string>
+    <string name="prompt_null">prompt_null</string>
+    <string name="the_number_you_need_to_generate_is">The number you need to generate is</string>
+    <string name="clr">CLR</string>
+    <string name="restart">Restart</string>
+    <string name="solution">Solution</string>
 </resources>

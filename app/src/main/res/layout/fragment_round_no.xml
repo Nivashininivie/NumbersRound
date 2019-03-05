@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWindowLightestBg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_Small"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_Small"
+            app:cardCornerRadius="@dimen/margin_Small"
+            app:cardElevation="@dimen/margin_Small">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorWindowLightestBg"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/AppTextViewTitleStyle"
+                    android:text="@string/the_number_you_need_to_generate_is" />
+
+                <TextView
+                    android:id="@+id/tvRandomNo"
+                    style="@style/AppTextViewTitleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/btn_filled_box_bg"
+                    android:padding="@dimen/margin_Medium"
+                    android:textColor="@color/colorWhite" />
+
+                <TextView
+                    android:id="@+id/tvTimer"
+                    style="@style/AppTextViewTitleStyle"
+                    android:maxLines="1"
+                    android:padding="@dimen/margin_Small"
+                    android:text=""
+                    android:textSize="@dimen/text_size_medium" />
+
+                <TextView
+                    android:id="@+id/tvTypedNo"
+                    style="@style/AppTextViewTitleStyle"
+                    android:padding="@dimen/margin_Small"
+                    android:text=""
+                    android:textSize="@dimen/text_size_normal" />
+
+                <LinearLayout
+                    android:id="@+id/linLayNoCont"
+                    android:layout_width="375dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" />
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@color/colorWindowLightestBg"
+                    android:gravity="center">
+
+                    <ImageButton
+                        android:id="@+id/btnAdd"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_Small"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:contentDescription="@string/prompt_null"
+                        android:src="@drawable/ic_add" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/margin_xSmall"
+                        android:background="@color/colorWhite" />
+
+                    <ImageButton
+                        android:id="@+id/btnSubtract"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_Small"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:contentDescription="@string/prompt_null"
+                        android:src="@drawable/ic_minus" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/margin_xSmall"
+                        android:background="@color/colorWhite" />
+
+                    <ImageButton
+                        android:id="@+id/btnMultiply"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_Small"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:contentDescription="@string/prompt_null"
+                        android:src="@drawable/ic_multiply" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/margin_xSmall"
+                        android:background="@color/colorWhite" />
+
+                    <ImageButton
+                        android:id="@+id/btnDivide"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_Small"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:contentDescription="@string/prompt_null"
+                        android:src="@drawable/ic_divide" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/margin_xSmall"
+                        android:background="@color/colorWhite" />
+
+                    <ImageButton
+                        android:id="@+id/btnEqual"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_Small"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:contentDescription="@string/prompt_null"
+                        android:src="@drawable/ic_equal" />
+
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/margin_xSmall"
+                        android:background="@color/colorWhite" />
+
+                    <ImageButton
+                        android:id="@+id/btnBackSpace"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_Small"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:contentDescription="@string/prompt_null"
+                        android:src="@drawable/ic_backspace" />
+
+                </TableRow>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSteps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnGenerate"
+            style="@style/AppButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/margin_Medium"
+            android:paddingStart="@dimen/margin_Large"
+            android:paddingEnd="@dimen/margin_Large"
+            android:text="@string/generate"
+            android:visibility="gone"
+            app:cornerRadius="@dimen/margin_Large" />
+    </LinearLayout>
+
+
+</ScrollView>

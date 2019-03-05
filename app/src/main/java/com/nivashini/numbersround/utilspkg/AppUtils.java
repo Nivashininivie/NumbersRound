@@ -9,6 +9,9 @@ import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.nivashini.numbersround.MainActivity;
+import com.nivashini.numbersround.R;
+
 import java.io.PrintStream;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -107,19 +110,18 @@ public class AppUtils {
     public void goToFragment(final Context context, int container, Fragment fragment, boolean isAddToBackStack) {
         String backStateName = fragment.getClass().getName();
         FragmentManager manager = null;
-//        if (container == R.id.main_frag_container) {
-//            manager = ((MainActivity) context).getSupportFragmentManager();
-//        } else if (container == R.id.user_management_container) {
-//            manager = ((UserManagementActivity) context).getSupportFragmentManager();
-//        }
-//        if (manager != null && !manager.popBackStackImmediate(backStateName, 0)) {
-//            if (isAddToBackStack) {
-//                manager.beginTransaction().replace(container, fragment, backStateName).addToBackStack(backStateName).commit();
-//            } else {
-//                manager.beginTransaction().replace(container, fragment, backStateName).disallowAddToBackStack().commit();
-//            }
-//        }
+        if (container == R.id.main_act_frag_container) {
+            manager = ((MainActivity) context).getSupportFragmentManager();
+        }
+        if (manager != null && !manager.popBackStackImmediate(backStateName, 0)) {
+            if (isAddToBackStack) {
+                manager.beginTransaction().replace(container, fragment, backStateName).addToBackStack(backStateName).commit();
+            } else {
+                manager.beginTransaction().replace(container, fragment, backStateName).disallowAddToBackStack().commit();
+            }
+        }
     }
+
     public void hideSoftKeyboard(Activity activity) {
         InputMethodManager inputMethodManager =
                 (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
