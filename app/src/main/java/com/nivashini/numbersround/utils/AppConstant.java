@@ -10,7 +10,7 @@ public class AppConstant {
     public static final int PERMISSION_WRITE_REQ_CODE = 789;
     public static final String EMAIL = "Email";
     public static final String PASWD = "Paswd";
-    public static final String SELECTED_NOS = "Selecte Number";
+    public static final String SELECTED_NOS = "Select Number";
     public static final String CLEAR_ALL = "Clear all";
     public static final String DELETE_LAST = "Delete Last";
     public static final String REPLACE_WITH_RESULT = "Replace with result";
