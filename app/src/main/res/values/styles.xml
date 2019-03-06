@@ -14,7 +14,6 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <!--Custom Themes by Me-->
     <style name="MyAppTheme" parent="MyAppTheme.Base" />
 
     <style name="MyAppTheme.Base" parent="Theme.MaterialComponents.Light.NoActionBar">  <!--Theme.AppCompat.Light.DarkActionBar-->
@@ -110,11 +109,11 @@
         <item name="android:textSize">@dimen/text_size_large</item>
     </style>
 
-    <style name="Toolbar" parent="Widget.AppCompat.Toolbar">
+    <style name="ToolbarStyle" parent="Widget.AppCompat.Toolbar">
         <item name="android:background">?attr/colorAccent</item>
         <item name="android:theme">@style/AppTheme</item>
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
-        <item name="titleTextAppearance">@style/Toolbar</item>
+        <item name="titleTextAppearance">@style/ToolbarStyle</item>
     </style>
 
 </resources>

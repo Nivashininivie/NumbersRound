@@ -21,11 +21,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:background="@color/colorWindowLightestBg"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
                     style="@style/AppTextViewTitleStyle"
+                    android:layout_margin="@dimen/margin_xSmall"
                     android:text="@string/the_number_you_need_to_generate_is" />
 
                 <TextView
@@ -34,28 +37,35 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_margin="@dimen/margin_xxSmall"
                     android:background="@drawable/btn_filled_box_bg"
-                    android:padding="@dimen/margin_Medium"
+                    android:paddingStart="@dimen/margin_Large"
+                    android:paddingTop="@dimen/margin_Small"
+                    android:paddingEnd="@dimen/margin_Large"
+                    android:paddingBottom="@dimen/margin_Small"
                     android:textColor="@color/colorWhite" />
 
                 <TextView
                     android:id="@+id/tvTimer"
                     style="@style/AppTextViewTitleStyle"
+                    android:layout_margin="@dimen/margin_xSmall"
                     android:maxLines="1"
                     android:padding="@dimen/margin_Small"
                     android:text=""
+                    android:textColor="@color/colorRed"
                     android:textSize="@dimen/text_size_medium" />
 
                 <TextView
                     android:id="@+id/tvTypedNo"
                     style="@style/AppTextViewTitleStyle"
+                    android:layout_margin="@dimen/margin_xSmall"
                     android:padding="@dimen/margin_Small"
                     android:text=""
                     android:textSize="@dimen/text_size_normal" />
 
                 <LinearLayout
                     android:id="@+id/linLayNoCont"
-                    android:layout_width="375dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical" />
 

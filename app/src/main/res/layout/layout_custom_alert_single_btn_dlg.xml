@@ -43,8 +43,9 @@
             android:layout_margin="@dimen/margin_xSmall"
             android:gravity="center"
             android:padding="@dimen/margin_xSmall"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/text_size_medium" />
+            android:textColor="@color/colorTextGrey"
+            android:textSize="@dimen/text_size_medium"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnAlertOkay"
@@ -55,10 +56,11 @@
             android:layout_marginRight="@dimen/margin_xxxLarge"
             android:layout_marginBottom="@dimen/margin_Small"
             android:padding="@dimen/margin_Small"
-            android:text="@string/okay"
+            android:text="@string/restart"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/text_size_medium"
             android:textStyle="bold" />
+
 
     </LinearLayout>
 

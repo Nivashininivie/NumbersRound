@@ -178,23 +178,23 @@ public class RoundNoFrag extends Fragment implements View.OnClickListener {
             button.setId(View.generateViewId());
             button.setOnClickListener(this);
             if (i <= 2)
-                generateButton(tablerow1, button, String.valueOf(noList.get(i)), 24, 60, 24, 60);
+                generateButton(tablerow1, button, String.valueOf(noList.get(i)));
             else
-                generateButton(tablerow2, button, String.valueOf(noList.get(i)), 24, 60, 24, 60);
+                generateButton(tablerow2, button, String.valueOf(noList.get(i)));
         }
         linLayContainer.removeAllViews();
         linLayContainer.addView(tablerow1);
         linLayContainer.addView(tablerow2);
     }
 
-    private void generateButton(TableRow tableRow, TextView button, String text, int paddingStart, int paddingTop, int paddingEnd, int paddingBottom) {
+    private void generateButton(TableRow tableRow, TextView button, String text) {
         TableRow.LayoutParams trLayoutParams = new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
         button.setLayoutParams(trLayoutParams);
         button.setText(text);
         button.setTextColor(context.getResources().getColor(R.color.colorAccent));
         button.setGravity(Gravity.CENTER);
         button.setBackgroundColor(context.getResources().getColor(R.color.colorWhite));
-        button.setPadding(paddingStart, paddingTop, paddingEnd, paddingBottom);
+        button.setPadding(16, 50, 16, 50);
         tableRow.addView(button);
     }
 
